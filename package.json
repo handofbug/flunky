@@ -4,6 +4,7 @@
   "description": "Discord bot",
   "main": "index.js",
   "scripts": {
+    "dev" : "NODE_ENV=dev node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/handofbug/flunky/issues"
   },
-  "homepage": "https://github.com/handofbug/flunky#readme"
+  "homepage": "https://github.com/handofbug/flunky#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "config-yml": "^0.8.0"
+  }
 }
