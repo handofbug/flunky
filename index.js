@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
+const Discord = require('discord.js');
 const config = require('config-yml');
+const client = new Discord.Client();
 const modules = {};
 const settings = require('./config/settings.json');
 
@@ -12,8 +14,20 @@ fs.readdirSync(path.join(__dirname, "modules")).forEach(file => {
     modules[file] = module;
 });
 
+client.on('ready', () => {
+    console.log('flunky here!');
+});
 
 
+client.on('message', (message) => {
+    Object.keys(modules).forEach(key => {
+        const module = modules[key];
+        module.textActions.forEach(cmd => {
+            if (message.content.match(cmd.pattern)) {
+                cmd.func(message);
+            }
+        })
+    })
+})
 
-console.log(settings);
-console.log(modules);
+client.login(settings.token);
