@@ -2,15 +2,20 @@ class Test {
     constructor() {
         this.pattern = /hi/gi;
     }
-    Timer() {
-
+    event(eventEmmiter) {
+        this.eventEmmiter = eventEmmiter;
+        this.eventEmmiter.on('tick', this.timer.bind(this));        
+        return this;
     }
-    Command(message) {
+    timer() {
+        console.log('test tick');
+    }
+    command(message) {
         if (message.content.match(this.pattern) && message.author.id !== message.client.user.id) {
-            this.Send(message,'hi');
+            this.send(message, 'hi');
         }
     }
-    Send(message, text) {
+    send(message, text) {
         message.channel.send(text);
     }
 }

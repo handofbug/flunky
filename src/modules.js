@@ -12,11 +12,15 @@ class Module {
      * @returns this
      * @memberof Module
      */
-    load(pathToFolder = '../modules') {
+    loadModules(pathToFolder = '../modules') {
         fs.readdirSync(path.join(__dirname, pathToFolder)).forEach(fileName => {
             const moduleFile = require('./' + pathToFolder + '/' + fileName);
             this.addModule(fileName, moduleFile);
         });
+        return this;
+    }
+    event(eventEmmiter) {
+        this.eventEmmiter = eventEmmiter;
         return this;
     }
     /**
@@ -27,7 +31,7 @@ class Module {
      * @memberof Module
      */
     addModule(fileName, moduleFile) {
-        this.modules[fileName] = moduleFile;
+        this.modules[fileName] = moduleFile.event(this.eventEmmiter);
     }
     getModules() {
         return this.modules;
@@ -43,8 +47,11 @@ class Module {
      */
     onMessage(message) {
         Object.keys(this.modules).forEach(key => {
-            this.modules[key].Command(message);
+            this.modules[key].command(message);
         })
+    }
+    onTick() {
+        this.eventEmmiter.emit('tick', {});
     }
 }
 
