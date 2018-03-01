@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/handofbug/flunky#readme",
   "dependencies": {
-    "discord.js": "^11.3.0"
+    "discord.js": "^11.3.0",
+    "monk": "^6.0.5"
   },
   "devDependencies": {
     "config-yml": "^0.8.0"

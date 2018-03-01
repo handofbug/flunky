@@ -1,6 +1,6 @@
-class Test {
+class Pikabu {
     constructor() {
-        this.pattern = /hi/gi;
+        this.pattern = /pikabu/gi;
         this.queue = new Map();
     }
     event(eventEmmiter) {
@@ -13,15 +13,20 @@ class Test {
         return this;
     }
     timer() {
-        console.log('test tick');
+        const a = this.db.get('pikabu');
+        a.find({}).then(data => {
+            console.log('object');
+            console.log(data);
+        })
+        console.log('pikabu tick');
     }
     command(message) {
         if (message.content.match(this.pattern) && message.author.id !== message.client.user.id) {
-            this.send(message, 'hi');
+            this.send(message, 'pikapika');
         }
     }
     send(message, text) {
         message.channel.send(text);
     }
 }
-module.exports = new Test();
+module.exports = new Pikabu();

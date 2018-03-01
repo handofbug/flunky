@@ -23,6 +23,10 @@ class Module {
         this.eventEmmiter = eventEmmiter;
         return this;
     }
+    db(db) {
+        this.db = db;
+        return this;
+    }    
     /**
      * Add module to class
      * 
@@ -31,7 +35,7 @@ class Module {
      * @memberof Module
      */
     addModule(fileName, moduleFile) {
-        this.modules[fileName] = moduleFile.event(this.eventEmmiter);
+        this.modules[fileName] = moduleFile.event(this.eventEmmiter).db(this.db);
     }
     getModules() {
         return this.modules;
