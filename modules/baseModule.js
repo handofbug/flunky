@@ -1,5 +1,10 @@
 class BaseModule {
-    constructor({eventEmmiter = null, db = null, cheerio = null, needle = null}) {
+    constructor({
+        eventEmmiter = null,
+        db = null,
+        cheerio = null,
+        needle = null
+    }) {
         this.eventEmmiter = eventEmmiter;
         this.eventEmmiter.on('tick', this.timer.bind(this));
         this.db = db.get(this.constructor.name);
@@ -21,6 +26,9 @@ class BaseModule {
     }
     send(message, text) {
         message.channel.send(text);
+    }
+    sendEmbded(message, msg) {
+        message.channel.send({msg});
     }
 }
 module.exports = BaseModule;
