@@ -2,7 +2,9 @@ const path = require('path');
 const fs = require('fs');
 
 class Module {
-    constructor() {
+    constructor(eventEmmiter, db) {
+        this.eventEmmiter = eventEmmiter;
+        this.db = db;
         this.modules = {};
     }
     /**
@@ -19,14 +21,6 @@ class Module {
         });
         return this;
     }
-    event(eventEmmiter) {
-        this.eventEmmiter = eventEmmiter;
-        return this;
-    }
-    db(db) {
-        this.db = db;
-        return this;
-    }    
     /**
      * Add module to class
      * 
@@ -35,7 +29,7 @@ class Module {
      * @memberof Module
      */
     addModule(fileName, moduleFile) {
-        this.modules[fileName] = moduleFile.event(this.eventEmmiter).db(this.db);
+        this.modules[fileName] = new moduleFile(this.eventEmmiter, this.db);//.event(this.eventEmmiter).db(this.db);
     }
     getModules() {
         return this.modules;
@@ -59,4 +53,4 @@ class Module {
     }
 }
 
-module.exports = new Module()
+module.exports = Module;
