@@ -1,4 +1,4 @@
-const BaseModule = require('../src/baseModule');
+const BaseModule = require('./baseModule');
 
 class Test extends BaseModule{
     init() {

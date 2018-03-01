@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const cheerio = require('cheerio');
+const needle = require('needle');
 
 class Module {
     constructor(eventEmmiter, db) {
@@ -16,8 +18,10 @@ class Module {
      */
     loadModules(pathToFolder = '../modules') {
         fs.readdirSync(path.join(__dirname, pathToFolder)).forEach(fileName => {
-            const moduleFile = require('./' + pathToFolder + '/' + fileName);
-            this.addModule(fileName, moduleFile);
+            if (fileName !== 'baseModule.js') {
+                const moduleFile = require('./' + pathToFolder + '/' + fileName);
+                this.addModule(fileName, moduleFile);
+            }
         });
         return this;
     }
@@ -29,7 +33,12 @@ class Module {
      * @memberof Module
      */
     addModule(fileName, moduleFile) {
-        this.modules[fileName] = new moduleFile(this.eventEmmiter, this.db);//.event(this.eventEmmiter).db(this.db);
+        this.modules[fileName] = new moduleFile({
+            eventEmmiter: this.eventEmmiter,
+            db: this.db,
+            cheerio: cheerio,
+            needle: needle
+        });
     }
     getModules() {
         return this.modules;
@@ -49,7 +58,7 @@ class Module {
         })
     }
     onTick() {
-        this.eventEmmiter.emit('tick', {});
+        // this.eventEmmiter.emit('tick', {});
     }
 }
 

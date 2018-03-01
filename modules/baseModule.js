@@ -1,14 +1,17 @@
 class BaseModule {
-    constructor(eventEmmiter, db) {
+    constructor({eventEmmiter = null, db = null, cheerio = null, needle = null}) {
         this.eventEmmiter = eventEmmiter;
         this.eventEmmiter.on('tick', this.timer.bind(this));
         this.db = db.get(this.constructor.name);
+        this.cheerio = cheerio;
+        this.needle = needle;
         this.init();
     }
     init() {
         this.pattern = /hi/gi;
     }
-    timer() {
+    timer(args) {
+        // console.log(args.time);
         console.log(this.constructor.name + ' tick');
     }
     command(message) {

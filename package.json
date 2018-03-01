@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/handofbug/flunky#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.3.0",
-    "monk": "^6.0.5"
+    "monk": "^6.0.5",
+    "needle": "^2.2.0"
   },
   "devDependencies": {
     "config-yml": "^0.8.0"

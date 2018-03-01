@@ -14,7 +14,9 @@ const modules = new Modules(eventEmmiter, db).loadModules();
 settings.token = (process.env.NODE_ENV === "dev" ? config.token : settings.token);
 
 const timer = setInterval(() => {
-    eventEmmiter.emit('tick');
+    eventEmmiter.emit('tick', {
+        time: new Date().getUnixTime()
+    });
 }, 1000);
 
 client.on('ready', () => {
@@ -27,3 +29,7 @@ client.on('message', (message) => {
 })
 
 client.login(settings.token);
+
+Date.prototype.getUnixTime = function () {
+    return this.getTime() / 1000 | 0
+};
