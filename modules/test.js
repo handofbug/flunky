@@ -1,12 +1,17 @@
-module.exports = {
-    textActions: [{
-        description: 'Just a hello',
-        pattern: /hi/gi,
-        
-        func: (message) => {
-            console.log(this.textActions);
-            message.channel.send('hello to u');
+class Test {
+    constructor() {
+        this.pattern = /hi/gi;
+    }
+    Timer() {
+
+    }
+    Command(message) {
+        if (message.content.match(this.pattern) && message.author.id !== message.client.user.id) {
+            this.Send(message,'hi');
         }
-    }],
-    timerActions:[]
+    }
+    Send(message, text) {
+        message.channel.send(text);
+    }
 }
+module.exports = new Test();
